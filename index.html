@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday Tenuka Dihansa | Sweet 16</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --cyan: #00f3ff;
+      --magenta: #ff007f;
+      --purple: #a855f7;
+      --gold: #f59e0b;
+      --text: #f8fafc;
+      --font-main: 'Outfit', sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Background Canvas */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+
+    /* HERO SECTION - Fits inside Mobile Screen */
+    .hero-section {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Floating IT Badges */
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid rgba(0, 243, 255, 0.4);
+      color: var(--cyan);
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .tech-pill .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    /* Big Glowing Title */
+    .hero-title {
+      font-size: clamp(2.2rem, 8vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, var(--cyan) 50%, var(--magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.4));
+    }
+
+    .name-badge {
+      display: block;
+      font-size: clamp(2.5rem, 10vw, 5rem);
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--purple);
+      margin-top: 0.2rem;
+    }
+
+    /* Giant Tech 16 Badge */
+    .badge-16-container {
+      position: relative;
+      margin: 1.8rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .badge-16 {
+      width: clamp(120px, 35vw, 170px);
+      height: clamp(120px, 35vw, 170px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(3, 7, 18, 0.8) 70%);
+      border: 2px solid var(--purple);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: pulse-glow 2.5s infinite alternate;
+    }
+
+    .badge-16 .num {
+      font-size: clamp(3.2rem, 12vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(180deg, #fff, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-16 .sub {
+      font-size: 0.7rem;
+      font-family: var(--font-code);
+      color: var(--magenta);
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* High School / IT Terminal Code Box */
+    .terminal-box {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(0, 243, 255, 0.25);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: left;
+      font-family: var(--font-code);
+      font-size: clamp(0.75rem, 3vw, 0.9rem);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .terminal-header {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    .dot-btn {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .red { background: #ff5f56; }
+    .yellow { background: #ffbd2e; }
+    .green { background: #27c93f; }
+
+    .terminal-body {
+      color: #38edf8;
+      line-height: 1.6;
+    }
+
+    .code-keyword { color: var(--magenta); }
+    .code-var { color: var(--gold); }
+    .code-string { color: #4ade80; }
+
+    /* Scroll Indicator Arrow */
+    .scroll-hint {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+      font-family: var(--font-code);
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--cyan);
+    }
+
+    /* SCROLL-REVEALED SECTION */
+    .stats-section {
+      padding: 4rem 0 2rem 0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+
+    .stats-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--cyan);
+      font-family: var(--font-code);
+    }
+
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 1.2rem 1rem;
+      border-radius: 14px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--cyan);
+    }
+
+    .stat-val {
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
+      font-weight: 900;
+      color: #fff;
+      font-family: var(--font-code);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ANIMATIONS */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.2); }
+      100% { box-shadow: 0 0 45px rgba(0, 243, 255, 0.7), inset 0 0 25px rgba(255, 0, 127, 0.4); }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle & Fireworks Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="container">
+    
+    <!-- FIRST SCREEN - MOBILE IMPACT HERO -->
+    <section class="hero-section">
+      
+      <div class="tech-pill">
+        <span class="dot"></span>
+        <span>STATUS: LEVEL_16_UNLOCKED</span>
+      </div>
+
+      <h1 class="hero-title">
+        HAPPY BIRTHDAY
+        <span class="name-badge">TENUKA DIHANSA</span>
+      </h1>
+
+      <div class="badge-16-container">
+        <div class="badge-16">
+          <span class="num">16</span>
+          <span class="sub">Years Old</span>
+        </div>
+      </div>
+
+      <!-- IT High-Tech Code Block Animation -->
+      <div class="terminal-box">
+        <div class="terminal-header">
+          <div class="dot-btn red"></div>
+          <div class="dot-btn yellow"></div>
+          <div class="dot-btn green"></div>
+        </div>
+        <div class="terminal-body">
+          <span class="code-keyword">const</span> developer = {<br>
+          &nbsp;&nbsp;name: <span class="code-string">"Tenuka Dihansa"</span>,<br>
+          &nbsp;&nbsp;age: <span class="code-var">16</span>,<br>
+          &nbsp;&nbsp;skills: [<span class="code-string">"IT"</span>, <span class="code-string">"Coding"</span>, <span class="code-string">"Problem Solving"</span>],<br>
+          &nbsp;&nbsp;status: <span class="code-string">"High School IT Specialist"</span><br>
+          };<br>
+          <span class="code-keyword">developer</span>.celebrate();
+        </div>
+      </div>
+
+      <div class="scroll-hint">
+        <span>SCROLL FOR STATS</span>
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+      </div>
+
+    </section>
+
+    <!-- SCROLL ONLY SECTION -->
+    <section class="stats-section" id="statsSection">
+      <h2 class="section-title">&lt;LIFETIME_STATS /&gt;</h2>
+      
+      <div class="grid-stats">
+        <div class="stat-card">
+          <div class="stat-val" id="daysVal">5844</div>
+          <div class="stat-label">Days Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="hoursVal">140,256</div>
+          <div class="stat-label">Hours Active</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">192</div>
+          <div class="stat-label">Months</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">100%</div>
+          <div class="stat-label">IT Capacity</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Designed for Tenuka Dihansa • Sweet 16 Celebration
+    </footer>
+
+  </div>
+
+  <script>
+    // Canvas & Fireworks Animation Logic
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let fireworks = [];
+    let particles = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Firework {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = height;
+        this.targetY = Math.random() * (height * 0.5) + 50;
+        this.speed = Math.random() * 3 + 4;
+        this.angle = Math.atan2(this.targetY - this.y, 0);
+        this.color = `hsl(${Math.random() * 360}, 100%, 65%)`;
+      }
+
+      update() {
+        this.y -= this.speed;
+        if (this.y <= this.targetY) {
+          this.explode();
+          return true;
+        }
+        return false;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+
+      explode() {
+        const particleCount = 40;
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle(this.x, this.y, this.color));
+        }
+      }
+    }
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 1;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.02 + 0.015;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.08; // gravity
+        this.alpha -= this.decay;
+        return this.alpha <= 0;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(3, 7, 18, 0.2)';
+      ctx.fillRect(0, 0, width, height);
+
+      if (Math.random() < 0.08) {
+        fireworks.push(new Firework());
+      }
+
+      for (let i = fireworks.length - 1; i >= 0; i--) {
+        fireworks[i].draw();
+        if (fireworks[i].update()) {
+          fireworks.splice(i, 1);
+        }
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].draw();
+        if (particles[i].update()) {
+          particles.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Intersection Observer for Scroll Revealing Section
+    const statsSection = document.getElementById('statsSection');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          statsSection.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(statsSection);
+
+    // Touch interactive fireworks on mobile touch
+    window.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      const color = `hsl(${Math.random() * 360}, 100%, 65%)`;
+      for (let i = 0; i < 20; i++) {
+        particles.push(new Particle(touch.clientX, touch.clientY, color));
+      }
+    });
+  </script>
+</body>
+</html>
